@@ -2,7 +2,7 @@ const mongoose =require('mongoose');
 
 const menuItemSchema = new mongoose.Schema({
     name:{
-        type:string,
+        type: String,
         required:true,
     },
     price:{
@@ -11,7 +11,7 @@ const menuItemSchema = new mongoose.Schema({
     },
     taste:{
         type: String,
-        enum:['sweet','spicy','Sour'],
+        enum:['sweet','spicy','sour'],
         required:true,
     },
     is_drink:{
@@ -19,7 +19,7 @@ const menuItemSchema = new mongoose.Schema({
         default: false,
     },
     ingredients:{
-        type:[string],
+        type:[String],
         default:[]
     },
     num_sales:{
@@ -29,5 +29,5 @@ const menuItemSchema = new mongoose.Schema({
 
 })
 
-const MenuItem = moongoose.model('MenuItem', menuItemSchema);
+const MenuItem = mongoose.model('MenuItem', menuItemSchema);
 module.exports = MenuItem;

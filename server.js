@@ -72,11 +72,10 @@ const db = require('./db');
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
-const Person = require('./models/Person');
-const MenuItem = require('./models/MenuItem');
 
+// use the routes
 app.get('/', function (req, res) {
-  res.send('Welcome to my hotel....How can i help you ?. what do you like to order sir');
+  res.send('Welcome to our Hotel');
 })
 
 //  app.get('/chicken',(req, res)=>{
@@ -96,35 +95,14 @@ app.get('/', function (req, res) {
 //     res.send(customized_idli)
 // })
 
-// post route to add a person
 
-app.post('/Person', async (req, res) => {
-  try {
-    const data = req.body
+// import the router files
+const personRoutes = require('./routes/personRoutes');
+const menuItemRoutes = require('./routes/menuItemRoutes');
 
-    const newPerson = new Person(data);
-
-      const response = await newPerson.save()
-      console.log('data saved');
-      res.status(200).json(response);
-    }catch(err){
-        console.log(err);
-        res.status(500).json({error:'Internal server Error'})
-    }
-  })
-
-  //GET method to get the person
-
-  app.get('/person', async (req,res)=>{
-    try{
-        const data = await Person.find();
-        console.log('data fetched');
-        res.status(200).json(data);
-    }catch(err){
-      console.log(err);
-        res.status(500).json({error:'Internal server Error'})
-    }
-  })
+// use the routes
+app.use('/person', personRoutes);
+app.use('/menu',menuItemRoutes );
 
 app.listen(3000, () => {
   console.log('listening on port 3000');
